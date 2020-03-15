@@ -1,0 +1,131 @@
+<html>
+<head>
+    <title> Hemming </title>
+    <script>
+        function code()
+        {
+            var x=document.getElementById('input').value;
+            x=x.split('');
+            var j=1;
+            for (i=0; i<4; i++)
+            {
+                if ((x[i]!== '0')&&(x[i]!== '1'))
+                {
+                    j=0;
+                }
+            }
+            if (j === 1)
+            {
+                if (x.length === 4)
+                {
+                    for (i=0; i<4; i++)
+                    {
+                        x[i]=parseInt(x[i]);
+                    }
+                    x.push((x[0]+x[2]+x[3])%2);
+                    x.push((x[0]+x[1]+x[3])%2);
+                    x.push((x[1]+x[2]+x[3])%2);
+                    document.getElementById('output').value = x.join('');
+                }
+                else
+                {
+                    document.getElementById('output').value = 'Введите 4 бита';
+                }
+            }
+            else
+            {
+                document.getElementById('output').value = 'Вводите только 0 и 1';
+            }
+        }
+        function decode()
+        {
+            var x=document.getElementById('input2').value;
+            x=x.split('');
+            var j=1;
+            for (i=0; i<4; i++)
+            {
+                if ((x[i]!== '0')&&(x[i]!== '1'))
+                {
+                    j=0;
+                }
+            }
+            if (j === 1)
+            {
+                if (x.length === 7)
+                {
+                    for (i=0; i<7; i++)
+                    {
+                        x[i]=parseInt(x[i]);
+                    }
+                    var str1;
+                    var mist = [false, false, false];
+                    if (x[4]==((x[0]+x[2]+x[3])%2))
+                    {
+                        mist[0]=true;
+                    }
+                    if (x[5]==((x[0]+x[1]+x[3])%2))
+                    {
+                        mist[1]=true;
+                    }
+                    if (x[6]==((x[1]+x[2]+x[3])%2))
+                    {
+                        mist[2]=true;
+                    }
+
+                    if ((mist[0])&&(mist[1])&&(mist[2]))
+                    {
+                        str="000";
+                    }
+                    if (!(mist[0])&&(mist[1])&&(mist[2]))
+                    {
+                        str="101";
+                    }
+                    if ((mist[0])&&(!mist[1])&&(mist[2]))
+                    {
+                        str="110";
+                    }
+                    if ((mist[0])&&(mist[1])&&(!mist[2]))
+                    {
+                        str="111";
+                    }
+                    if ((!mist[0])&&(!mist[1])&&(mist[2]))
+                    {
+                        str="001";
+                    }
+                    if ((!mist[0])&&(mist[1])&&(!mist[2]))
+                    {
+                        str="011";
+                    }
+                    if ((mist[0])&&(!mist[1])&&(!mist[2]))
+                    {
+                        str="010";
+                    }
+                    if ((!mist[0])&&(!mist[1])&&(!mist[2]))
+                    {
+                        str="100";
+                    }
+                    document.getElementById('output2').value = str;
+                }
+                else
+                {
+                    document.getElementById('output2').value = 'Ввести 7 бит';
+                }
+            }
+            else
+            {
+                document.getElementById('output2').value = 'Вводить только 0 и 1';
+            }
+        }
+    </script>
+</head>
+<body>
+<hl> Encode <br/>
+    <input type = 'text' id ='input'> Enter 4 bits <br/>
+    <input type = 'button' value='Encode' onClick='code()'/> <br/>
+    <input type = 'text' id='output'> <br/>
+    <hl> Decode <br/>
+        <input type = 'text' id ='input2'> Enter 7 bits <br/>
+        <input type = 'button' value='Decode' onClick='decode()'/> <br/>
+        <input type = 'text' id='output2'> <br/>
+</body>
+</html>
